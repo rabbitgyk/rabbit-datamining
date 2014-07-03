@@ -13,8 +13,8 @@ hs_err_pid*
 
 #eclipse
 .metadata/
-.classpath
-.project
+*.classpath
+*.project
 .settings/
 
 #for gradle
