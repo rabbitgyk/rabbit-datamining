@@ -9,6 +9,7 @@ public class StringUtilTest {
 	@Test
 	public void test() {
 		fail("Not yet implemented");
+		System.out.println("hello junit");
 	}
 
 }
