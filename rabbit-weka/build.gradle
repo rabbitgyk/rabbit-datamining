@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies{
+	compile 'net.sf.squirrel-sql.thirdparty-non-maven:java-cup:0.11a'
+	compile 'org.pentaho.pentaho-commons:pentaho-package-manager:1.0.8'
+	
+	testCompile 'junit:junit:4.+'
+}

@@ -1,6 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+repositories {
+	mavenCentral()
+}
+
 dependencies{
 	compile 'commons-io:commons-io:2.4'
 	compile 'commons-lang:commons-lang:2.5'
@@ -11,4 +15,6 @@ dependencies{
 	compile 'log4j:log4j:1.2.17'
 	compile 'org.codehaus.jackson:jackson-core-lgpl:1.8.2'
 	compile 'org.codehaus.jackson:jackson-mapper-lgpl:1.8.2'
+	
+	testCompile 'junit:junit:4.+'
 }
