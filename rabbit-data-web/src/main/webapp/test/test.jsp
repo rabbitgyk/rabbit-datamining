@@ -6,6 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	hello world! test guoyankui
+	hello world! test guoyankui${username}
+	<h2>郭衍奎  项目部署脚本 ＯＨＡＨＡ 耳机是很好的</h2>
 </body>
 </html>
