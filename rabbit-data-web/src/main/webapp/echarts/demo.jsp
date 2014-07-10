@@ -2,13 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>折线图</title>
-<!--Step:1 Import a module loader, such as esl.js or require.js-->
-<!--Step:1 引入一个模块加载器，如esl.js或者require.js-->
-<script src="<%=request.getContextPath() %>/jslib/esl.js"></script>
+<jsp:include page="../base.jsp"></jsp:include>
+<title>数据可视化demo</title>
 <script type="text/javascript">
-	<!-- 写js代码 -->
     // Step:3 conifg ECharts's path, link to echarts.js from current page.
     // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
     require.config({
