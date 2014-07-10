@@ -11,9 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TestController {
 	
 	@RequestMapping("/test")
-	public String index(HttpServletRequest request){
+	public String test(HttpServletRequest request){
 		request.setAttribute("username", "rabbit-guoyankui");
 		return "/test/test";
+	}
+	
+	@RequestMapping("/echartDemo")
+	public String echartDemo(HttpServletRequest request){
+		return "/echarts/demo";
 	}
 
 }
