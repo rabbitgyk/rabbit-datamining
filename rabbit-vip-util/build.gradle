@@ -1,6 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+archivesBaseName="rabbit-vip-util"
+group = 'com.rabbit'
+version = "1.0-SNAPSHOT"
+
 repositories {
 	mavenCentral()
 }

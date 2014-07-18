@@ -1,6 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+archivesBaseName="rabbit-data-biz"
+group = 'com.rabbit'
+version = "1.0-SNAPSHOT"
+
 repositories {
 	mavenCentral()
 }
@@ -17,4 +21,8 @@ dependencies{
 	compile 'org.codehaus.jackson:jackson-mapper-lgpl:1.8.2'
 	
 	testCompile 'junit:junit:4.+'
+	
+	compile 'net.sf.squirrel-sql.thirdparty-non-maven:java-cup:0.11a'
+	compile 'org.pentaho.pentaho-commons:pentaho-package-manager:1.0.8'
+	compile fileTree(dir: '/home/rabbit/rabbit-datamining/rabbit-weka/build/libs', include: '*.jar')
 }

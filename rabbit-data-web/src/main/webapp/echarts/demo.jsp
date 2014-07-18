@@ -105,9 +105,11 @@
 </script>
 </head>
 <body>
- 	<!--Step:2 Prepare a dom for ECharts which (must) has size (width & hight)-->
-    <!--Step:2 为ECharts准备一个具备大小（宽高）的Dom-->
-    <div id="main" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
-    <div id="mainMap" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+	<div class="container">
+		<!--Step:2 Prepare a dom for ECharts which (must) has size (width & hight)-->
+		<!--Step:2 为ECharts准备一个具备大小（宽高）的Dom-->
+		<div id="main" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+		<div id="mainMap" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+    </div><!-- /.container -->
 </body>
 </html>
