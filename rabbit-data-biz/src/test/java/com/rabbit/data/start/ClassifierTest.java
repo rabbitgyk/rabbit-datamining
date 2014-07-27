@@ -37,6 +37,7 @@ public class ClassifierTest
     {
         ClassifierTest ctest = new ClassifierTest();
         ctest.getFileInstances( "/home/rabbit/data/weather.numeric.arff");
-        ctest.classify();
+//        ctest.classify();
+        System.out.println(ctest.m_instances.instance(2).attribute(0).isNominal());
     }
 }
