@@ -39,12 +39,6 @@ public class EvenChecker implements Runnable{
 			exec.execute(new EvenChecker(i, generator));
 		}
 		exec.shutdown();
-//		try {
-//			exec.awaitTermination(2, TimeUnit.SECONDS);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 	
 	public static void start(IntGenerator generator){

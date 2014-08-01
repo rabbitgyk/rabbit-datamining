@@ -10,6 +10,7 @@ import weka.attributeSelection.GreedyStepwise;
 import weka.classifiers.Evaluation;
 import weka.classifiers.meta.AttributeSelectedClassifier;
 import weka.classifiers.trees.J48;
+import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.Utils;
 import weka.filters.Filter;
@@ -24,16 +25,18 @@ public class FilterTest
         FileReader frData = new FileReader( fileName );
         m_instances = new Instances( frData );
         m_instances.setClassIndex( m_instances.numAttributes() - 1 );
+        Attribute attr = m_instances.attribute(0);
+        System.out.println(m_instances.instance(3).value(attr));
     }
    
     public void selectAttUseFilter() throws Exception
     {
         AttributeSelection filter = new AttributeSelection();  // package weka.filters.supervised.attribute!
         CfsSubsetEval eval = new CfsSubsetEval();
-//        GreedyStepwise search = new GreedyStepwise();
-//        String[] gsOption = Utils.splitOptions("-P 1,5-7,9 -N 10");
-//        search.setOptions(gsOption);
-        ConnectSubGraph search = new ConnectSubGraph();
+        GreedyStepwise search = new GreedyStepwise();
+        String[] gsOption = Utils.splitOptions("-P 1,5-7,9 -N 10");
+        search.setOptions(gsOption);
+//        ConnectSubGraph search = new ConnectSubGraph();
         System.out.println("num to select : "+search.getNumToSelect());
         filter.setEvaluator(eval);
         filter.setSearch(search);
@@ -64,8 +67,8 @@ public class FilterTest
     public static void main( String[] args ) throws Exception
     {
         FilterTest filter = new FilterTest();
-        filter.getFileInstances( "/home/rabbit/data/my/waveform21.arff");
-        filter.selectAttUseFilter();
+        filter.getFileInstances( "/home/rabbit/data/weather.numeric.arff");
+//        filter.selectAttUseFilter();
 //        filter.selectAttUseMC();
     }
  
