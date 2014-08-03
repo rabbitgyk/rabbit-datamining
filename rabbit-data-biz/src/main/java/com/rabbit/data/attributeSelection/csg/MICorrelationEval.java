@@ -1,4 +1,4 @@
-package com.rabbit.data.attributeSelection;
+package com.rabbit.data.attributeSelection.csg;
 
 import java.io.FileReader;
 import java.util.Enumeration;

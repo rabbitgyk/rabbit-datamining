@@ -27,7 +27,7 @@ public class ClassifierTest
        
         classifier.buildClassifier( m_instances );
         System.out.println( classifier.classifyInstance( m_instances.instance( 0 ) ) );
-        double[] dis = classifier.distributionForInstance(m_instances.instance( 0 ));
+        double[] dis = classifier.distributionForInstance(m_instances.instance(3));
         for(double i : dis){
         	System.out.println("dis:"+i);
         }
@@ -37,7 +37,7 @@ public class ClassifierTest
     {
         ClassifierTest ctest = new ClassifierTest();
         ctest.getFileInstances( "/home/rabbit/data/weather.numeric.arff");
-//        ctest.classify();
+        ctest.classify();
         System.out.println(ctest.m_instances.instance(2).attribute(0).isNominal());
     }
 }

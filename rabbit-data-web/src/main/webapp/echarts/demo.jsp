@@ -105,11 +105,11 @@
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="margin-top:80px; margin-bottom:30px;">
 		<!--Step:2 Prepare a dom for ECharts which (must) has size (width & hight)-->
 		<!--Step:2 为ECharts准备一个具备大小（宽高）的Dom-->
 		<div id="main" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
 		<div id="mainMap" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
-    </div><!-- /.container -->
+	</div><!-- /.container -->
 </body>
 </html>

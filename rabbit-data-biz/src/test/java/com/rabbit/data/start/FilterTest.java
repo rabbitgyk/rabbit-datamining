@@ -3,8 +3,6 @@ package com.rabbit.data.start;
 import java.io.FileReader;
 import java.util.Random;
 
-import com.rabbit.data.attributeSelection.ConnectSubGraph;
-
 import weka.attributeSelection.CfsSubsetEval;
 import weka.attributeSelection.GreedyStepwise;
 import weka.classifiers.Evaluation;
