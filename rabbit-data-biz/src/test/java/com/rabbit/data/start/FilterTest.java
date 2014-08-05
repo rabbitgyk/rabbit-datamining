@@ -66,7 +66,7 @@ public class FilterTest
     {
         FilterTest filter = new FilterTest();
         filter.getFileInstances( "/home/rabbit/data/weather.numeric.arff");
-//        filter.selectAttUseFilter();
+        filter.selectAttUseFilter();
 //        filter.selectAttUseMC();
     }
  

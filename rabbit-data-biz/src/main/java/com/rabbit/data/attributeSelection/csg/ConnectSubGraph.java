@@ -16,12 +16,69 @@ public class ConnectSubGraph {
 	private int m_numAttr;
 	private int m_classIndex;
 	private double[][] m_corr_matrix;
+	private double[][] corrMatrixBak; //备份原始的相关度矩阵
 	
 	private boolean debug = false;
 	
-	public ConnectSubGraph(double threshold0, double threshold) {
+	/**
+	 * 初始化基于极大连通子图的相关度属性选择算法
+	 * @param data　数据集
+	 * @param threshold0　删除与类属性不相关的属性，相关度阈值
+	 * @param threshold　删除冗余的属性，相关度阈值
+	 * @throws Exception
+	 */
+	public ConnectSubGraph(Instances data, double threshold0, double threshold) throws Exception {
+		m_instances = new Instances(data);
+		m_numAttr = m_instances.numAttributes();
+		m_classIndex = m_instances.classIndex();
+		MICorrelationEval mic = new MICorrelationEval();
+		mic.buildEvaluator(m_instances);
+		m_corr_matrix = mic.getMICorrMatrix();
+		bakCorrMatrix();
 		m_threshold0 = threshold0;
 		m_threshold = threshold;
+	}
+	
+	/**
+	 * 备份原始的相关度矩阵
+	 */
+	private void bakCorrMatrix(){
+		corrMatrixBak = new double[m_corr_matrix.length][];
+		for(int i = 0; i < m_corr_matrix.length; i++){
+			corrMatrixBak[i] = new double[m_corr_matrix[i].length];
+			for(int j =0; j < m_corr_matrix[i].length; j++){
+				corrMatrixBak[i][j] = m_corr_matrix[i][j];
+			}
+		}
+	}
+	
+	/**
+	 * 设置删除不相关属性的阈值
+	 * @param alpha
+	 */
+	public void setClassThreshold(double alpha){
+		m_threshold0 = alpha;
+	}
+	/**
+	 * 设置删除冗余属性的阈值
+	 * @param beta
+	 */
+	public void setAttrThreshold(double beta){
+		m_threshold = beta;
+	}
+	/**
+	 * 获得所有属性之间的相关度
+	 * @return
+	 */
+	public double[][] getMICorrMatrix(){
+		return m_corr_matrix;
+	}
+	/**
+	 * 获得所有属性之间的原始的相关度
+	 * @return
+	 */
+	public double[][] getOriginMICorrMatrix(){
+		return corrMatrixBak;
 	}
 
 	/**
@@ -30,17 +87,14 @@ public class ConnectSubGraph {
 	 * @param data
 	 * @throws Exception
 	 */
-	public void search(Instances data)	throws Exception {
-		m_numAttr = data.numAttributes();
-		m_classIndex = data.classIndex();
-		m_instances = new Instances(data);
-		MICorrelationEval mic = new MICorrelationEval();
-		mic.buildEvaluator(data);
-		m_corr_matrix = mic.getMICorrMatrix();
+	public void search() throws Exception {
+		
 		if(debug)
 			printCorr();
 		if(delAttrGroup == null)
 			delAttrGroup = new BitSet(m_numAttr);
+		else
+			delAttrGroup.clear();
 		//删除与类属性不相关的属性
 		for(int i=0; i<m_numAttr; i++){
 			double corr = getCorrelation(m_classIndex, i);
@@ -134,8 +188,10 @@ public class ConnectSubGraph {
 		FileReader frData = new FileReader("/home/rabbit/data/my/CountryFlag25.arff");
 		Instances instances = new Instances( frData );
 		instances.setClassIndex( instances.numAttributes()-1 );
-		ConnectSubGraph csg = new ConnectSubGraph(0.001, 0.3);
-		csg.search(instances);
-		System.out.println(csg.getEndInstances());
+//		System.out.println(instances);
+		ConnectSubGraph csg = new ConnectSubGraph(instances, 0.001, 0.3);
+		csg.search();
+		csg.printCorr();
+//		System.out.println(csg.getEndInstances());
 	}
 }

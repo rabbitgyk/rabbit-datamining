@@ -19,8 +19,6 @@ public class MICorrelationEval {
 	private double[][] m_corr_matrix;
 	/** 属性的个数 */
 	private int m_numAttr;
-	/** 相关度的总个数 */
-	private int m_numCorr;
 	
 	public MICorrelationEval(){
 		
@@ -33,9 +31,7 @@ public class MICorrelationEval {
 		m_corr_matrix = new double[m_numAttr][];
 	    for (int i = 0; i < m_numAttr; i++) {
 	    	m_corr_matrix[i] = new double[i + 1];
-	    	m_numCorr += (i + 1);
 	    }
-	    m_numCorr -= m_numAttr;
 	    for (int i = 0; i < m_corr_matrix.length; i++) {
 	    	m_corr_matrix[i][i] = 1.0f;
 	    }
