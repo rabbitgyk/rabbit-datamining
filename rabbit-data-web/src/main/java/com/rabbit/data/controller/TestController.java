@@ -1,6 +1,5 @@
 package com.rabbit.data.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rabbit.data.model.Instance;
 import com.rabbit.data.model.Json;
+
+/**
+ * 测试
+ * @author rabbit
+ * @date   Aug 6, 2014
+ */
 
 @Controller
 @RequestMapping("/")

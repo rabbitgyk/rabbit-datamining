@@ -2,6 +2,7 @@ package com.rabbit.data.attributeSelection.csg;
 
 import java.io.FileReader;
 import java.util.Enumeration;
+
 import weka.core.Attribute;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -169,13 +170,19 @@ public class MICorrelationEval {
 	}
 	
 	public static void main(String[] args) throws Exception{
-		FileReader frData = new FileReader("/home/rabbit/data/my/wdbc31.arff");
+		FileReader frData = new FileReader("/home/rabbit/data/my/CountryFlag28.arff");
 		Instances instances = new Instances( frData );
 		instances.setClassIndex( instances.numAttributes()-1 );
 		
 		MICorrelationEval mic = new MICorrelationEval();
 		mic.buildEvaluator(instances);
-		
+		double[][] corr = mic.getMICorrMatrix();
+		for(int i = 0; i < corr.length; i++){
+			for(int j =0; j < corr[i].length; j++){
+				System.out.print(corr[i][j] + "  ");
+			}
+			System.out.println();
+		}
 	}
 
 }

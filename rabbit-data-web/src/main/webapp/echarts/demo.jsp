@@ -10,7 +10,7 @@
     // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
     require.config({
         paths:{ 
-            echarts:'<%=request.getContextPath() %>/jslib/echarts',
+            'echarts': '<%=request.getContextPath() %>/jslib/echarts',
             'echarts/chart/bar' : '<%=request.getContextPath() %>/jslib/echarts-map',
             'echarts/chart/line': '<%=request.getContextPath() %>/jslib/echarts-map',
             'echarts/chart/map' : '<%=request.getContextPath() %>/jslib/echarts-map'

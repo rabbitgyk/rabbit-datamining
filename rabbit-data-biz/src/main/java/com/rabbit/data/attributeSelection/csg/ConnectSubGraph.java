@@ -185,7 +185,7 @@ public class ConnectSubGraph {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		FileReader frData = new FileReader("/home/rabbit/data/my/CountryFlag25.arff");
+		FileReader frData = new FileReader("/home/rabbit/data/my/CountryFlag28.arff");
 		Instances instances = new Instances( frData );
 		instances.setClassIndex( instances.numAttributes()-1 );
 //		System.out.println(instances);

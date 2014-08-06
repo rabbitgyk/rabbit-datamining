@@ -15,12 +15,21 @@ dependencies{
 	compile 'commons-logging:commons-logging:1.1.1'
 	compile 'commons-collections:commons-collections:3.2.1'
 	compile 'log4j:log4j:1.2.17'
+	compile 'org.slf4j:slf4j-api:1.7.7'
+	compile 'org.slf4j:slf4j-simple:1.7.7'
 	compile 'org.codehaus.jackson:jackson-core-lgpl:1.8.2'
 	compile 'org.codehaus.jackson:jackson-mapper-lgpl:1.8.2'
 	compile 'com.alibaba:fastjson:1.1.41'
+	compile 'net.sf.json-lib:json-lib:2.4:jdk15'
 	
 	compile 'org.springframework:spring-webmvc:4.0.5.RELEASE'
 	compile 'javax.servlet:servlet-api:2.5'
+	
+	compile 'net.sf.squirrel-sql.thirdparty-non-maven:java-cup:0.11a'
+	compile 'org.pentaho.pentaho-commons:pentaho-package-manager:1.0.8'
+	compile fileTree(dir: '/home/rabbit/rabbit-datamining/rabbit-weka/build/libs', include: '*.jar')
+	compile fileTree(dir: '/home/rabbit/rabbit-datamining/rabbit-data-biz/build/libs', include: '*.jar')
+	compile fileTree(dir: '/home/rabbit/rabbit-datamining/rabbit-vip-util/build/libs', include: '*.jar')
 	
 	testCompile 'junit:junit:4.+'
 }
