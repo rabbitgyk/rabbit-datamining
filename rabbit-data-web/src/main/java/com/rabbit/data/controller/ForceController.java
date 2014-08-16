@@ -90,7 +90,7 @@ public class ForceController {
 		Node[] nodes = getNodes(data);
 		forceData.setNodes(nodes);
 		
-		Link[] links = getLinks(data, 0.3);
+		Link[] links = getLinks(data, 0.02);
 		forceData.setLinks(links);
 		return forceData;
 	}
@@ -108,12 +108,11 @@ public class ForceController {
 			Attribute attr = data.attribute(i);
 			Node node = new Node();
 			node.setName(attr.name());
+			node.setValue(1);
 			if(attr.index() == classIndex){
 				node.setCategory(1);
-				node.setValue(2);
 			}else{
 				node.setCategory(0);
-				node.setValue(1);
 			}
 			nodes[i] = node;
 		}
@@ -138,7 +137,7 @@ public class ForceController {
 					Link link = new Link();
 					link.setSource(i);
 					link.setTarget(j);
-					int weight = (int)(mic[i][j] * 10);
+					int weight = (int)(mic[i][j] * 100);
 					if(weight == 0)
 						weight = 1;
 					link.setWeight(weight);

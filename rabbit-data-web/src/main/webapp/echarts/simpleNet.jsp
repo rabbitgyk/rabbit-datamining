@@ -45,7 +45,7 @@
             			    series : [
             			        {
             			            type:'force',
-            			            name : '属性之间关系',
+            			            name : '属性关系',
             			            categories : [
             			                {
             			                    name: result.obj.categories[0],
@@ -75,7 +75,7 @@
             			                    nodeStyle : {
             			                        brushType : 'both',
             			                        strokeColor : 'rgba(255,215,0,0.4)',
-            			                        lineWidth : 8
+            			                        lineWidth : 2
             			                    }
             			                },
             			                emphasis: {
@@ -84,7 +84,7 @@
             			                        // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
             			                    },
             			                    nodeStyle : {
-            			                        r: 30
+            			                        r: 20
             			                    },
             			                    linkStyle : {}
             			                }
@@ -99,6 +99,7 @@
             			    ]
             			};
             		myChart.setOption(option);
+            		$("#data").text(result.msg);
             }, 'JSON');
             
         }
@@ -108,7 +109,8 @@
 <body>
 	<div class="container" style="margin-top:80px; margin-bottom:30px;">
 		<!--Step:2 为ECharts准备一个具备大小（宽高）的Dom-->
-		<div id="main" style="height:500px;width:700px;border:1px solid #ccc;padding:10px;"></div>
+		<div id="main" style="height:500px;width:700px;border:1px solid #ccc;padding:10px;float:left;"></div>
+		<div id="data" style="height:500px;width:500px;border:1px solid #ccc;padding:10px;float:right;"></div>
 	</div><!-- /.container -->
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.rabbit.data.attributeSelection;
 import java.io.FileReader;
 
 import com.rabbit.data.attributeSelection.csg.ConnectSubGraph;
+import com.rabbit.data.classifier.NaiveBayesImpl;
 
 import weka.core.Instances;
 
@@ -16,7 +17,7 @@ public class ConnectSubGraphImpl implements AttributeSelectionI{
 	private Instances instances;
 	private ConnectSubGraph csg;
 	private final double alpha0 = 0.001;
-	private final double beta0 = 0.02;
+	private double beta0 = 0.01;
 	
 	public ConnectSubGraphImpl(Instances data){
 		instances = data;
@@ -25,6 +26,22 @@ public class ConnectSubGraphImpl implements AttributeSelectionI{
 	@Override
 	public void buildAS() throws Exception {
 		csg = new ConnectSubGraph(instances, alpha0, beta0);
+		double maxpct = 0.0;
+		double maxBeta = beta0;
+		while(beta0 < 1.0){
+			csg.setAttrThreshold(beta0);
+			csg.search();
+			NaiveBayesImpl nbi = new NaiveBayesImpl(csg.getEndInstances());
+			nbi.runClassifier();
+			if(nbi.pctCorrect() > maxpct){
+				maxpct = nbi.pctCorrect();
+				maxBeta = beta0;
+			}
+			beta0 = beta0 + 0.01;
+		}
+		
+		System.out.println("maxBeta:"+maxBeta);
+		csg.setAttrThreshold(maxBeta);
 		csg.search();
 	}
 
