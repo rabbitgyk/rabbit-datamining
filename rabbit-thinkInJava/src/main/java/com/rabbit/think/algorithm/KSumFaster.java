@@ -3,7 +3,13 @@ package com.rabbit.think.algorithm;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * K sum的求和问题一般是这样子描述的：
+ * 给你一组N个数字(比如 int[] data), 然后给你一个常数(比如 int sum)，
+ * 我们的goal是在这一组数里面找到K个数字，使得这K个数字的和等于sum。
+ * @author rabbit
+ * @date   Aug 30, 2014
+ */
 public class KSumFaster {
 	
 	private static int[] data = {3, 4, -5, 6, 8, 13, -4, -3, 9, 5, -6, 11, 7, 15, -7};
