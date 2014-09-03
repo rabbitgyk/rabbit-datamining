@@ -4,7 +4,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
+/**
+ * Google 的 simhash 算法产生的签名，可以用来比较原始内容的相似度,
+ * 因为它的签名值除了提供原始内容是否相等的信息外，还能额外提供不相等的原始内容的差异程度的信息。
+ * @author rabbit
+ * @date   Sep 3, 2014
+ */
 public class SimHash {
 
     private String tokens;
