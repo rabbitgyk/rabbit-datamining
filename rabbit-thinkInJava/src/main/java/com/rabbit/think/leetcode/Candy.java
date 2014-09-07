@@ -34,15 +34,12 @@ public class Candy {
 				candys[i] = 1;
 			}
 		}
-		//每个孩子与其右侧的比较，修正值
+		//每个孩子与其右侧的比较，修正值,并计算最小总数
+		int count = candys[n-1];
 		for(int i=n-2; i>=0; i--){
 			if(ratings[i] > ratings[i+1] && candys[i] <= candys[i+1]){
 				candys[i] = candys[i+1] + 1;
 			}
-		}
-		//糖果总数
-		int count = 0;
-		for(int i=0; i<n; i++){
 			count = count + candys[i];
 		}
 		
