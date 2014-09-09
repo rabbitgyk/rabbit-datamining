@@ -1,9 +1,9 @@
 package com.rabbit.data.model;
 
-public class ClassifyResult {
+public class StudentData {
 	
-	private int numCorrect;
-	private double errorRate;
+	private int id;
+	private double score;
 	
 
 }
