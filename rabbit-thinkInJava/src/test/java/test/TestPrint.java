@@ -37,11 +37,13 @@ public class TestPrint {
 //		if (n != null) 
 //			System.out.println("three = " + n);
 		
-		Queue<Integer> queue = new LinkedList<Integer>();
-		queue.offer(1);
-		System.out.println(queue.isEmpty());
-		queue.poll();
-		System.out.println(queue.isEmpty());
+//		Queue<Integer> queue = new LinkedList<Integer>();
+//		queue.offer(1);
+//		System.out.println(queue.isEmpty());
+//		queue.poll();
+//		System.out.println(queue.isEmpty());
+		String s = "guue";
+		System.out.println(s.substring(0, 1));
 	}
 	
 }
