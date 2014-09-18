@@ -1,7 +1,6 @@
 package com.rabbit.think.leetcode;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 /**
@@ -20,43 +19,66 @@ import java.util.Set;
  */
 public class WordBreak2 {
 	
-	public static void main(String[] args) {
-		String s = "absd";
-		Set<String> dict = new HashSet<String>();
-		dict.add("ab");
-		dict.add("s");
-		dict.add("d");
-		System.out.println(wordBreak(s, dict));
-	}
 	/**
-	 * 使用了动态规划 dp
+	 * 使用了 dp + dfs
 	 * @param s
 	 * @param dict
 	 * @return
 	 */
 	public static List<String> wordBreak(String s, Set<String> dict){
-		if(s == null || dict == null)
-			return null;
-		
-		int n = s.length();
-		List<String> list = new ArrayList<String>();
-		boolean[] dp = new boolean[n+1];
-		dp[0] = true;
-		for(int i=1; i<=n; i++){
-			if(dp[i-1]){
-				int index = i - 1;
-				StringBuffer tmp = new StringBuffer();
-				tmp.append(s.substring(0, index));
-				for(int j=index; j<n; j++){
-					String sub = s.substring(index, j+1);
-					if(dict.contains(sub)){
-						dp[j+1] = true;
-					}
-				}
-			}
-		}
-		
-		return dp[n];
-	} 
+		ArrayList<String> result = new ArrayList<String>();
+        if(s == null || dict.size() <= 0){
+            return result;
+        }
+        int length = s.length();
+        // seg(i, j) means substring t start from i and length is j can be
+        // segmented into dictionary words
+        boolean[][] seg = new boolean[length][length + 1];
+        for(int len=1; len<=length; len++){
+            for(int i=0; i<length-len+1; i++){
+                String t = s.substring(i, i + len);
+                if(dict.contains(t)){
+                    seg[i][len] = true;
+                    continue;
+                }
+                for(int k=1; k<len; k++){
+                    if(seg[i][k] && seg[i + k][len - k]){
+                        seg[i][len] = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if(!seg[0][length]){
+            return result;
+        }
+
+        int depth = 0;
+        dfs(s, dict, result, seg, 0, length, depth, new StringBuffer());
+
+        return result;
+	}
+	
+	private static void dfs(String s, Set<String> dict, ArrayList<String> result, 
+			boolean[][] seg, int start, int length, int depth, StringBuffer sb){
+        if(depth == length){
+            String t = sb.toString();
+            result.add(t.substring(0, t.length() - 1));
+            return;
+        }
+
+        for(int len=1; len<=length; len++){
+            if(seg[start][len]){
+                String t = s.substring(start, start + len);
+                if(!dict.contains(t)){
+                    continue;
+                }
+                int beforeAddLen = sb.length();
+                sb.append(t).append(" ");
+                dfs(s, dict, result, seg, start + len, length, start + len, sb);
+                sb.delete(beforeAddLen, sb.length());
+            }
+        }
+    }
 	
 }
