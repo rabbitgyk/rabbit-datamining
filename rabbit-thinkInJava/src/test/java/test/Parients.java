@@ -4,6 +4,9 @@ public class Parients {
 	
 	private int mm = 0;
 	public String st;
+	static{
+		System.out.println("静态块 Parients");
+	}
 	
 	public Parients(int mm) {
 		this.mm = mm;
@@ -11,7 +14,7 @@ public class Parients {
 	}
 	
 	public Parients(){
-		this(20);
+		System.out.println("parients gou zao");
 	}
 	
 	public void init(){
