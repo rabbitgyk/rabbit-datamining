@@ -34,17 +34,19 @@ public class PreOrder {
 	 */
 	private List<Integer> preTraversal(TreeNode root){
 		List<Integer> vals = new ArrayList<Integer>();
+        if(root == null){
+            return vals;
+        }
 		Stack<TreeNode> stack = new Stack<TreeNode>();
-		TreeNode p = root;
-		while(p != null || !stack.isEmpty()){
-			while(p != null){
-				vals.add(p.val);
-				stack.push(p);
-				p = p.left;
+		stack.push(root);
+		while(!stack.isEmpty()){
+			TreeNode node = stack.pop();
+			vals.add(node.val);
+			if(node.right != null){
+			    stack.push(node.right);
 			}
-			if(!stack.isEmpty()){
-				p = stack.pop();
-				p = p.right;
+			if(node.left != null){
+			    stack.push(node.left);
 			}
 		}
 		return vals;
