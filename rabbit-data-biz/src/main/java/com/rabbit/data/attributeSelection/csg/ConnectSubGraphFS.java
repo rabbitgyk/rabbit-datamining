@@ -6,8 +6,12 @@ import java.util.BitSet;
 
 import weka.core.Instances;
 
-
-public class ConnectSubGraph {
+/**
+ * 基于极大连通子图的属性选择算法
+ * @author rabbit
+ * @date   Dec 30, 2014
+ */
+public class ConnectSubGraphFS {
 
 	/** 生成极大连通子图的相关度阈值 */
 	private double m_threshold0;
@@ -28,7 +32,7 @@ public class ConnectSubGraph {
 	 * @param threshold　删除冗余的属性，相关度阈值
 	 * @throws Exception
 	 */
-	public ConnectSubGraph(Instances data, double threshold0, double threshold) throws Exception {
+	public ConnectSubGraphFS(Instances data, double threshold0, double threshold) throws Exception {
 		m_instances = new Instances(data);
 		m_numAttr = m_instances.numAttributes();
 		m_classIndex = m_instances.classIndex();
@@ -254,7 +258,7 @@ public class ConnectSubGraph {
 		Instances instances = new Instances( frData );
 		instances.setClassIndex( instances.numAttributes()-1 );
 		System.out.println(instances);
-		ConnectSubGraph csg = new ConnectSubGraph(instances, 0.001, 0.1);
+		ConnectSubGraphFS csg = new ConnectSubGraphFS(instances, 0.001, 0.1);
 		csg.search();
 		csg.printCorr();
 		System.out.println(csg.getEndInstances());

@@ -2,7 +2,8 @@ package com.rabbit.data.attributeSelection;
 
 import java.io.FileReader;
 
-import com.rabbit.data.attributeSelection.csg.ConnectSubGraph;
+import com.rabbit.data.attributeSelection.csg.ConnectSubGraphFS;
+import com.rabbit.data.classifier.ClassifierI;
 import com.rabbit.data.classifier.NaiveBayesImpl;
 
 import weka.core.Instances;
@@ -15,32 +16,45 @@ import weka.core.Instances;
 public class ConnectSubGraphImpl implements AttributeSelectionI{
 
 	private Instances instances;
-	private ConnectSubGraph csg;
+	private ConnectSubGraphFS csg;
 	private final double alpha0 = 0.001;
 	private double beta0 = 0.01;
+	
+	private ClassifierI classifier;
+	
+	double maxBeta;
 	
 	public ConnectSubGraphImpl(Instances data){
 		instances = data;
 	}
 	
+	/**
+	 * 设置评价的分类器
+	 * @param ci
+	 */
+	public void setEvalClassifier(ClassifierI ci){
+		this.classifier = ci;
+	}
+	
 	@Override
 	public void buildAS() throws Exception {
-		csg = new ConnectSubGraph(instances, alpha0, beta0);
+		csg = new ConnectSubGraphFS(instances, alpha0, beta0);
 		double maxpct = 0.0;
-		double maxBeta = beta0;
+		maxBeta = beta0;
 		while(beta0 < 1.0){
 			csg.setAttrThreshold(beta0);
 			csg.search();
-			NaiveBayesImpl nbi = new NaiveBayesImpl(csg.getEndInstances());
-			nbi.runClassifier();
-			if(nbi.pctCorrect() > maxpct){
-				maxpct = nbi.pctCorrect();
+//			NaiveBayesImpl nbi = new NaiveBayesImpl(csg.getEndInstances());
+			classifier.setData(csg.getEndInstances());
+			classifier.runClassifier();
+			if(classifier.pctCorrect() > maxpct){
+				maxpct = classifier.pctCorrect();
 				maxBeta = beta0;
 			}
 			beta0 = beta0 + 0.01;
 		}
 		
-		System.out.println("maxBeta:"+maxBeta);
+//		System.out.println("maxBeta:"+maxBeta);
 		csg.setAttrThreshold(maxBeta);
 		csg.search();
 	}
@@ -48,6 +62,10 @@ public class ConnectSubGraphImpl implements AttributeSelectionI{
 	@Override
 	public Instances endInstances() throws Exception {
 		return csg.getEndInstances();
+	}
+	
+	public double getMaxBeta(){
+		return maxBeta;
 	}
 	
 //	private void printCorr(double[][] m_corr_matrix){

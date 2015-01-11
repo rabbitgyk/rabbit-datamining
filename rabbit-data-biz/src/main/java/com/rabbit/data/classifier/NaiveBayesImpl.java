@@ -15,16 +15,25 @@ public class NaiveBayesImpl implements ClassifierI{
 	private NaiveBayes classifier;
 	private Evaluation eval;
 	
+	public NaiveBayesImpl() throws Exception{
+		classifier = new NaiveBayes();
+	}
+	
 	public NaiveBayesImpl(Instances data) throws Exception{
 		instances = data;
 		classifier = new NaiveBayes();
+	}
+	
+	@Override
+	public void setData(Instances data){
+		this.instances = data;
 	}
 
 	@Override
 	public String runClassifier() throws Exception {
 		eval = new Evaluation(instances);
 		eval.crossValidateModel(classifier, instances, 10, new Random(1));
-		return eval.toSummaryString("\nClassify Results:\n", false);
+		return eval.toSummaryString("\nClassify Results:", false);
 	}
 
 	@Override

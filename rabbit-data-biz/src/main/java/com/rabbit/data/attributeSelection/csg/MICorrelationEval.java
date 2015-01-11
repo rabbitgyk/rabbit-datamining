@@ -1,15 +1,19 @@
 package com.rabbit.data.attributeSelection.csg;
 
 import java.io.FileReader;
-import java.util.Enumeration;
+
+import com.rabbit.data.core.DiscretizeUtil;
+import com.rabbit.data.core.EntropyUtil;
 
 import weka.core.Attribute;
-import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.Utils;
-import weka.filters.Filter;
-import weka.filters.supervised.attribute.Discretize;
-
+/**
+ * 一种基于互信息的相关度表示方法
+ * 2*MI(1,2)/(en1 + en2)
+ * 
+ * @author rabbit
+ * @date   Dec 30, 2014
+ */
 public class MICorrelationEval {
 
 	/** 待处理的数据instances */
@@ -51,80 +55,9 @@ public class MICorrelationEval {
 		m_instances = new Instances(data);
 		m_numAttr = m_instances.numAttributes();
 		initCorrMatrix();
-		Instances discInstances = discretize(m_instances);
+		Instances discInstances = DiscretizeUtil.discretize(m_instances);
 		computeAllAttrEntropy(discInstances);
 		computeAllCorrelation(discInstances);
-	}
-	
-	/**
-	 * 原数据集不变得到新的离散化之后的数据集
-	 * @param instances
-	 * @return
-	 * @throws Exception
-	 */
-	private Instances discretize(Instances instances) throws Exception {
-		Instances discInstances = new Instances(instances);
-		Discretize disTransform = new Discretize();
-	    disTransform.setUseBetterEncoding(true);
-	    disTransform.setInputFormat(discInstances);
-	    discInstances = Filter.useFilter(discInstances, disTransform);
-	    return discInstances;
-	}
-	
-	/**
-	 * 计算数据集中的某个属性的信息熵
-	 * @param data 所有的属性都是normal(离散化之后)
-	 * @param attr　目标属性
-	 * @return
-	 * @throws Exception
-	 */
-	private double computeEntropy(Instances data, Attribute attr) throws Exception {
-		 
-	    double[] attrCounts = new double[attr.numValues()];
-	    Enumeration<Instance> instEnum = data.enumerateInstances();
-	    while (instEnum.hasMoreElements()) {
-	    	Instance inst = (Instance) instEnum.nextElement();
-	    	attrCounts[(int) inst.value(attr)]++;
-	    }
-	    double entropy = 0;
-	    for (int j = 0; j < attr.numValues(); j++) {
-	       if (attrCounts[j] > 0) {
-	           entropy -= attrCounts[j] * Utils.log2(attrCounts[j]);
-	       }
-	    }
-	    entropy /= (double) data.numInstances();
-	    return entropy + Utils.log2(data.numInstances());
-	}
-	
-	/**
-	 * 计算条件信息熵，在attr1的条件下，attr2的信息熵
-	 * @param data　所有的属性都是normal(离散化之后)
-	 * @param attr1　条件属性
-	 * @param attr2　目标属性
-	 * @return
-	 * @throws Exception
-	 */
-	private double computeCondiEntropy(Instances data, Attribute attr1, Attribute attr2) throws Exception{
-		int insCount = data.numInstances();
-		double entropy = 0.0;
-		Enumeration<Object> values = attr1.enumerateValues();
-		while(values.hasMoreElements()){
-			String value = (String)values.nextElement();
-			Instances splitInstances = new Instances(data); //仅包含attr1的一个值的数据子集
-			int deletedNum = 0; //记录已经删除的实例个数
-			for(int i = 0; i < data.numInstances(); i++){
-				Instance ins = data.instance(i);
-				if(!ins.stringValue(attr1).equals(value)){
-					splitInstances.delete(i - deletedNum);
-					deletedNum++;
-				}
-			}
-			//计算数据子集的熵
-			double subEntropy = computeEntropy(splitInstances, attr2);
-			entropy += (insCount-deletedNum)*subEntropy;
-		}
-		entropy /= insCount;
-		return entropy;
 	}
 	
 	/**
@@ -135,7 +68,7 @@ public class MICorrelationEval {
 		int numAttr = data.numAttributes();
 		allAttrEntropy = new double[numAttr];
 		for(int i = 0; i < numAttr; i++){
-			allAttrEntropy[i] = computeEntropy(data, data.attribute(i));
+			allAttrEntropy[i] = EntropyUtil.computeEntropy(data, data.attribute(i));
 		}
 	}
 	
@@ -151,7 +84,7 @@ public class MICorrelationEval {
 		double en2 = allAttrEntropy[attr2.index()];
 		if(en1 == 0.0 || en2 == 0.0)
 			return 0.0;
-		double condiEn = computeCondiEntropy(data, attr1, attr2);
+		double condiEn = EntropyUtil.computeCondiEntropy(data, attr1, attr2);
 		return 2*(en2 - condiEn)/(en1 + en2);
 	}
 	
@@ -170,7 +103,7 @@ public class MICorrelationEval {
 	}
 	
 	public static void main(String[] args) throws Exception{
-		FileReader frData = new FileReader("/home/rabbit/data/my/CountryFlag28.arff");
+		FileReader frData = new FileReader("/home/rabbit/data/my/wdbc31.arff");
 		Instances instances = new Instances( frData );
 		instances.setClassIndex( instances.numAttributes()-1 );
 		

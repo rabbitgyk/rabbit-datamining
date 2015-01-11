@@ -15,9 +15,18 @@ public class J48Impl implements ClassifierI{
 	private J48 classifier;
 	private Evaluation eval;
 	
+	public J48Impl() throws Exception{
+		classifier = new J48();
+	}
+	
 	public J48Impl(Instances data) throws Exception{
 		instances = data;
 		classifier = new J48();
+	}
+	
+	@Override
+	public void setData(Instances data){
+		this.instances = data;
 	}
 	
 	@Override

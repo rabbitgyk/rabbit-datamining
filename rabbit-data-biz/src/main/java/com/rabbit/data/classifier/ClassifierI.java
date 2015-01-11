@@ -3,9 +3,16 @@ package com.rabbit.data.classifier;
 import java.util.Map;
 
 import weka.core.Instance;
+import weka.core.Instances;
 
 public interface ClassifierI {
 
+	/**
+	 * 更改实验数据集
+	 * @param data
+	 */
+	public void setData(Instances data);
+	
 	/**
 	 * 按照默认的交叉验证的方法，返回分类的评价结果。
 	 * @param data 数据集
