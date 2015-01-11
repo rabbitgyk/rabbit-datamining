@@ -1,4 +1,4 @@
-package com.rabbit.data.test;
+package com.rabbit.data.result;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,7 +16,7 @@ public class PaoPao {
 				"my/wdbc31.arff","my/CountryFlag28.arff"};
 		
 		String set = "my/CountryFlag28.arff";
-		double beta = 0.48;
+		double beta = 0.48;//指定beta值
 		
 		FileReader frData = new FileReader("/home/rabbit/data/"+set);
 		Instances data = new Instances(frData);

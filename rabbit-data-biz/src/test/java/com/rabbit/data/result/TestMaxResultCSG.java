@@ -1,4 +1,4 @@
-package com.rabbit.data.test;
+package com.rabbit.data.result;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -13,7 +13,13 @@ import com.rabbit.data.attributeSelection.SampleOneImpl;
 import com.rabbit.data.classifier.J48Impl;
 import com.rabbit.data.classifier.NaiveBayesImpl;
 
-public class TestResult {
+/**
+ * 基于极大连通子图的属性选择算法和SOFS算法，最好的情况下的结果输出
+ * 
+ * @author rabbit
+ * @date   Jan 11, 2015
+ */
+public class TestMaxResultCSG {
 	
 	public static void main(String[] args) throws Exception{
 		

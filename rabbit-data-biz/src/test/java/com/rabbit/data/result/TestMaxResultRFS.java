@@ -1,4 +1,4 @@
-package com.rabbit.data.test;
+package com.rabbit.data.result;
 
 import java.io.FileReader;
 
@@ -8,7 +8,13 @@ import com.rabbit.data.classifier.NaiveBayesImpl;
 
 import weka.core.Instances;
 
-public class TestRFS {
+/**
+ * 这是RFS算法的分类准确率最高时的属性个数和分类准确率记录数据
+ * 
+ * @author rabbit
+ * @date   Jan 11, 2015
+ */
+public class TestMaxResultRFS {
 
 	public static void main(String[] args) throws Exception {
 		FileReader frData = new FileReader("/home/rabbit/data/my/CountryFlag28.arff");

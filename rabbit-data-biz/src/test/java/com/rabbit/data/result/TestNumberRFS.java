@@ -1,4 +1,4 @@
-package com.rabbit.data.test;
+package com.rabbit.data.result;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -12,7 +12,13 @@ import com.rabbit.data.classifier.NaiveBayesImpl;
 
 import weka.core.Instances;
 
-public class TestResult_rfs {
+/**
+ * 基于二次规划的属性选择算法QPFS的最优属性子集中的属性个数和对应分类准确率的数据记录
+ * 
+ * @author rabbit
+ * @date   Jan 11, 2015
+ */
+public class TestNumberRFS {
 
 	public static void main(String[] args) throws Exception{
 		

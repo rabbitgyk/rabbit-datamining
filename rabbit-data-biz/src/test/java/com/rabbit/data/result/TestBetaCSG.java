@@ -1,4 +1,4 @@
-package com.rabbit.data.test;
+package com.rabbit.data.result;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -15,7 +15,14 @@ import com.rabbit.data.classifier.NaiveBayesImpl;
 
 import weka.core.Instances;
 
-public class TestBianhua {
+/**
+ * 基于极大联通子图的属性选择算法随着参数Beta的变化，
+ * NaiveBayes和C4.5的分类准确率的变化
+ * 
+ * @author rabbit
+ * @date   Jan 11, 2015
+ */
+public class TestBetaCSG {
 	
 	public static void main(String[] args) throws Exception {
 		String saveFile = "/home/rabbit/data/my/result_sofs_j48.txt";
